@@ -12,15 +12,20 @@ version = "1.0-SNAPSHOT"
 
 repositories {
     mavenCentral()
-    // polkaj public repo
-    maven( url = "https://dl.bintray.com/emerald/polkaj")
+    ivy("https://github.com") {
+        patternLayout {
+            artifact("[organisation]/releases/download/v[revision]/[module]-[revision].jar")
+            setM2compatible(true)
+        }
+        metadataSources { artifact() }
+    }
     // required for com.github.multiformats:java-multibase library
     maven(url = "https://jitpack.io")
 }
 
 dependencies {
     implementation("io.ktor:ktor-client-websockets:$ktor_version")
-    implementation("io.emeraldpay.polkaj:polkaj-scale:$polkaj_version")
+    implementation("emeraldpay.polkaj:polkaj-scale:$polkaj_version")
 
     testImplementation(kotlin("test-junit"))
 }
